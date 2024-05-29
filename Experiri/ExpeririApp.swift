@@ -5,15 +5,15 @@
 //  Created by Ivan Voloshchuk on 29/05/24.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct ExpeririApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Experience.self,
-            ExperienceCategory.self
+            ExperienceCategory.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
