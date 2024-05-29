@@ -12,7 +12,8 @@ import SwiftData
 struct ExpeririApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Experience.self,
+            ExperienceCategory.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

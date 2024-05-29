@@ -10,16 +10,16 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var experiences: [Experience]
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(experiences) { experience in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text(experience.title)
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text("Experience at \(experience.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -35,13 +35,13 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            Text("Select an item")
+            Text("Select an experience")
         }
     }
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = Experience(title: "1", detail: "a b c", rating: 2, timestamp: Date(), category: .init(name: "123", hexColor: 01))
             modelContext.insert(newItem)
         }
     }
@@ -49,7 +49,7 @@ struct ContentView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(experiences[index])
             }
         }
     }
@@ -57,5 +57,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Experience.self, inMemory: true)
 }
